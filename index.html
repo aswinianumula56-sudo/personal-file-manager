@@ -1,1 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Personal Files Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ==============================
+     NAVBAR
+================================ -->
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <div class="website-title">
+            📁 Personal Files Manager
+        </div>
+
+
+        <div
+            id="userInfo"
+            class="user-info">
+        </div>
+
+
+        <div class="nav-buttons">
+
+            <button
+                class="nav-button active"
+                onclick="showPage('new-photo', this)">
+                📷 New Photo
+            </button>
+
+
+            <button
+                class="nav-button"
+                onclick="showPage('new-file', this)">
+                📄 New File
+            </button>
+
+
+            <button
+                class="nav-button"
+                onclick="showPage('saved-photos', this)">
+                🖼️ Saved Photos
+            </button>
+
+
+            <button
+                class="nav-button"
+                onclick="showPage('saved-files', this)">
+                📂 Saved Files
+            </button>
+
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+                onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ==============================
+     LOGIN / REGISTER PAGE
+================================ -->
+
+<section
+    id="auth-page"
+    class="auth-page">
+
+    <div class="auth-card">
+
+        <div class="auth-logo">
+            📁
+        </div>
+
+        <h1>
+            Personal Files Manager
+        </h1>
+
+        <p class="auth-subtitle">
+            Save your files securely in the cloud
+        </p>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginBox">
+
+            <h2>
+                Login
+            </h2>
+
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter email">
+
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password">
+
+
+            <button
+                class="auth-button"
+                onclick="login()">
+                Login
+            </button>
+
+
+            <p class="switch-text">
+
+                Don't have an account?
+
+                <button
+                    onclick="showRegister()">
+                    Create Account
+                </button>
+
+            </p>
+
+        </div>
+
+
+        <!-- REGISTER -->
+
+        <div
+            id="registerBox"
+            class="hidden">
+
+            <h2>
+                Create Account
+            </h2>
+
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="Enter email">
+
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Create password">
+
+
+            <input
+                type="password"
+                id="registerConfirmPassword"
+                placeholder="Confirm password">
+
+
+            <button
+                class="auth-button"
+                onclick="register()">
+                Create Account
+            </button>
+
+
+            <p class="switch-text">
+
+                Already have an account?
+
+                <button
+                    onclick="showLogin()">
+                    Login
+                </button>
+
+            </p>
+
+        </div>
+
+
+        <p
+            id="authMessage"
+            class="auth-message">
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==============================
+     MAIN WEBSITE
+================================ -->
+
+<main
+    id="main-app"
+    class="hidden">
+
+
+    <div class="container">
+
+
+        <!-- ==========================
+             NEW PHOTO
+        =========================== -->
+
+        <section
+            id="new-photo"
+            class="page active">
+
+            <div class="page-title">
+
+                <h1>
+                    New Photo
+                </h1>
+
+                <p>
+                    Upload a photo and save it
+                    permanently in your cloud storage.
+                </p>
+
+            </div>
+
+
+            <div class="upload-card">
+
+                <h2>
+                    Upload Photo
+                </h2>
+
+
+                <form
+                    id="photoForm"
+                    onsubmit="savePhoto(event)">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Photo Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="photoName"
+                            placeholder="Enter photo name"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Select Photo
+                        </label>
+
+                        <input
+                            type="file"
+                            id="photoInput"
+                            accept="image/*"
+                            required>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="save-button">
+
+                        Save Photo
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+             NEW FILE
+        =========================== -->
+
+        <section
+            id="new-file"
+            class="page">
+
+            <div class="page-title">
+
+                <h1>
+                    New File
+                </h1>
+
+                <p>
+                    Upload any type of file
+                    to your cloud storage.
+                </p>
+
+            </div>
+
+
+            <div class="upload-card">
+
+                <h2>
+                    Upload File
+                </h2>
+
+
+                <form
+                    id="fileForm"
+                    onsubmit="saveFile(event)">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            File Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fileName"
+                            placeholder="Enter file name"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Select File
+                        </label>
+
+                        <input
+                            type="file"
+                            id="fileInput"
+                            required>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="save-button">
+
+                        Save File
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+             SAVED PHOTOS
+        =========================== -->
+
+        <section
+            id="saved-photos"
+            class="page">
+
+            <div class="saved-header">
+
+                <div>
+
+                    <h1>
+                        Saved Photos
+                    </h1>
+
+                    <p>
+                        Your cloud saved photos
+                    </p>
+
+                </div>
+
+
+                <span
+                    id="photoCount"
+                    class="count">
+
+                    0 Photos
+
+                </span>
+
+            </div>
+
+
+            <div
+                id="photosGrid"
+                class="items-grid">
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================
+             SAVED FILES
+        =========================== -->
+
+        <section
+            id="saved-files"
+            class="page">
+
+            <div class="saved-header">
+
+                <div>
+
+                    <h1>
+                        Saved Files
+                    </h1>
+
+                    <p>
+                        Your cloud saved files
+                    </p>
+
+                </div>
+
+
+                <span
+                    id="fileCount"
+                    class="count">
+
+                    0 Files
+
+                </span>
+
+            </div>
+
+
+            <div
+                id="filesGrid"
+                class="items-grid">
+            </div>
+
+        </section>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- Supabase JavaScript library -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Your JavaScript -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
